@@ -2,11 +2,11 @@
 
 public abstract class Kontener
 {
-    public float MassWithCargo{set; get;}
-    public float MassOfContener{set; get;}
-    public float Height{set; get;}
-    public float Depth{set; get;}
-    public float MaxVolumeInKg{set; get;}
+    abstract public float MassWithCargo{set; get;}
+    abstract public float MassOfContener{set; get;}
+    abstract public float Height{set; get;}
+    abstract public float Depth{set; get;}
+    abstract public float MaxVolumeInKg{set; get;}
 
     protected string SerialNumber
     {
@@ -30,6 +30,23 @@ public abstract class Kontener
             return nextNum++;
         }
     }
+    
+    abstract public void Empty();
+    abstract protected void Zaladunek();
+
+    private void DontOverflow(float Mass)
+    {
+        if(Mass>MaxVolumeInKg)
+            throw new OverflowException("Maximum volume is " + MaxVolumeInKg);
+    }
+    
+    public void Fill(float Mass)
+    {
+        DontOverflow(Mass);
+        Zaladunek();
+    }
+    
+    
     
     
 
