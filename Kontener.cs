@@ -37,7 +37,7 @@ public abstract class Kontener
     private void DontOverflow(float Mass)
     {
         if(Mass>MaxVolumeInKg)
-            throw new OverflowException("Maximum volume is " + MaxVolumeInKg);
+            throw new OverfillException("Maximum volume is " + MaxVolumeInKg);
     }
     
     public void Fill(float Mass)
@@ -46,8 +46,4 @@ public abstract class Kontener
         Zaladunek();
     }
     
-    
-    
-    
-
 }
