@@ -2,23 +2,27 @@
 
 public abstract class Kontener
 {
-    abstract public float MassWithCargo{set; get;}
-    abstract public float MassOfContener{set; get;}
-    abstract public float Height{set; get;}
-    abstract public float Depth{set; get;}
-    abstract public float MaxVolumeInKg{set; get;}
+    public float MassWithCargo{set; get;}
+    public float MassOfContainer{set; get;}
+    public float Height{set; get;}
+    public float Depth{set; get;}
+    public float MaxVolumeInKg{set; get;}
 
-    protected string SerialNumber
+    public Char Type { get; }
+    
+    public String SerialNumber { get; }
+
+    protected Kontener(char type)
     {
-        set
-        {
-            SerialNumber = "KON-"+value+"-"+Kontener.nextNum;
-        }
-        get
-        {
-            return SerialNumber;
-        }
+        Type = type;
+        SerialNumber = CreateSerialNumber();
     }
+    
+    private string CreateSerialNumber()
+    {
+        return ("KON-"+Type+"-"+Kontener.nextNum);
+    }
+    
     private static int nextNum
     {
         set
@@ -32,7 +36,7 @@ public abstract class Kontener
     }
     
     abstract public void Empty();
-    abstract protected void Zaladunek();
+    abstract protected void Zaladunek(Cargo cargo);
 
     private void DontOverflow(float Mass)
     {
@@ -40,10 +44,10 @@ public abstract class Kontener
             throw new OverfillException("Maximum volume is " + MaxVolumeInKg);
     }
     
-    public void Fill(float Mass)
+    public void Fill(Cargo cargo)
     {
-        DontOverflow(Mass);
-        Zaladunek();
+        DontOverflow(cargo.Mass);
+        Zaladunek(cargo);
     }
     
 }
